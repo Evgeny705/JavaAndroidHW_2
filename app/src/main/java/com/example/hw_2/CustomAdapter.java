@@ -39,7 +39,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = inflater.inflate(R.layout.activity_listview, null);
+        View view = inflater.inflate(R.layout.listview_item, null);
         TextView textView = (TextView) view.findViewById(R.id.textView);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         textView.setText(countryList.get(position).name);
