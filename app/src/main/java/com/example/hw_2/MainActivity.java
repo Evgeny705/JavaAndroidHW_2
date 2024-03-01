@@ -15,22 +15,35 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listOfCountries = findViewById(R.id.listView);
 
-        final String[] countries = new String[]{
-                "Молдова",
-                "Румыния",
-                "Венгрия",
-                "Хорватия",
-                "Словения",
-                "Италия",
-                "Франция",
+        String[] countries = new String[]{
                 "Австрия",
+                "Франция",
+                "Германия",
+                "Венгрия",
+                "Италия",
+                "Португалия",
+                "Румыния",
                 "Испания",
-                "Германия"
+                "Швеция",
+                "Турция"
         };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.activity_listview, R.id.textView, countries);
+        int[] flags = new int[] {
+                R.drawable.flag_austria,
+                R.drawable.flag_france,
+                R.drawable.flag_germany,
+                R.drawable.flag_hungary,
+                R.drawable.flag_italy,
+                R.drawable.flag_portugal,
+                R.drawable.flag_romania,
+                R.drawable.flag_spain,
+                R.drawable.flag_sweden,
+                R.drawable.flag_turkey
+        };
 
-        listOfCountries.setAdapter(adapter);
+        CustomAdapter customAdapter = new CustomAdapter(getApplicationContext(), countries, flags);
+
+        listOfCountries.setAdapter(customAdapter);
 
     }
 }
