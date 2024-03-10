@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,9 +77,17 @@ public class CountriesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Country selectedCountry = countryList.get(position);
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra("selectedCountry", selectedCountry);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("selectedCountry", selectedCountry);
+                DetailsFragment detailsFragment = new DetailsFragment();
+                detailsFragment.setArguments(bundle);
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, detailsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+//                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+//                intent.putExtra("selectedCountry", selectedCountry);
+//                startActivity(intent);
             }
         });
 
