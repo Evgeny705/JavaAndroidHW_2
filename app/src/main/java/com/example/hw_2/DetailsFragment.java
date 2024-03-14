@@ -3,6 +3,7 @@ package com.example.hw_2;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailsFragment extends Fragment {
-
-    private Country selectedCountry;
 
     public DetailsFragment() {
     }
@@ -34,19 +33,22 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
+
+        DetailsViewModel viewModel = new ViewModelProvider(this).get(DetailsViewModel.class);
+
         Bundle bundle = getArguments();
-        selectedCountry = (Country) bundle.getSerializable("selectedCountry");
+        viewModel.selectedCountry.setValue((Country) bundle.getSerializable("selectedCountry"));
 
         if (bundle != null) {
             ImageView imageFlag = view.findViewById(R.id.imageFlag);
-            imageFlag.setImageResource(selectedCountry.flagId);
+            imageFlag.setImageResource(viewModel.selectedCountry.getValue().flagId);
 
             TextView textViewName = view.findViewById(R.id.textViewName);
-            textViewName.setText(selectedCountry.name);
+            textViewName.setText(viewModel.selectedCountry.getValue().name);
             TextView textViewCapital = view.findViewById(R.id.textViewCapital);
-            textViewCapital.setText(selectedCountry.capital);
+            textViewCapital.setText(viewModel.selectedCountry.getValue().capital);
             TextView textViewArea = view.findViewById(R.id.textViewArea);
-            textViewArea.setText("Площать: " + selectedCountry.area);
+            textViewArea.setText("Площать: " + viewModel.selectedCountry.getValue().area);
 
             Button btnClose = view.findViewById(R.id.buttonClose);
 
