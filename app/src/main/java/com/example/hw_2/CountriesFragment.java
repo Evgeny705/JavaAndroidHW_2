@@ -19,13 +19,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CountriesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CountriesFragment extends Fragment {
+public class CountriesFragment extends Fragment implements OnItemClickListener{
 
+    private CountriesViewModel viewModel;
     public CountriesFragment() {
         // Required empty public constructor
     }
@@ -45,15 +41,13 @@ public class CountriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        CountriesViewModel viewModel = new ViewModelProvider(this).get(CountriesViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CountriesViewModel.class);
 
         View view = inflater.inflate(R.layout.fragment_countries, container, false);
 
-//        ListView listOfCountries = (ListView) view.findViewById(R.id.listView);
-
         RecyclerView listOfCountries = (RecyclerView) view.findViewById(R.id.listView);
 
-        CustomAdapter customAdapter = new CustomAdapter(getActivity(), viewModel.getCountryList().getValue());
+        CustomAdapter customAdapter = new CustomAdapter(getActivity(), this::onItemClick, viewModel.getCountryList().getValue());
 
         listOfCountries.setAdapter(customAdapter);
 
@@ -78,4 +72,16 @@ public class CountriesFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Country selectedCountry = viewModel.getCountryList().getValue().get(position);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("selectedCountry", selectedCountry);
+        DetailsFragment detailsFragment = new DetailsFragment();
+        detailsFragment.setArguments(bundle);
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, detailsFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

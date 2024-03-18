@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,13 @@ import java.util.List;
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
     Context context;
+    OnItemClickListener listener;
     List<Country> countryList;
     LayoutInflater inflater;
 
-    public CustomAdapter(Context applicationContext, List<Country> countryList) {
+    public CustomAdapter(Context applicationContext, OnItemClickListener listener, List<Country> countryList) {
         this.context = context;
+        this.listener = listener;
         this.countryList = countryList;
         inflater = (LayoutInflater.from(applicationContext));
     }
@@ -49,43 +52,30 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         return countryList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView textView;
         ImageView imageView;
+        LinearLayout linearLayout;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.textView);
             imageView = itemView.findViewById(R.id.imageView);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
+            linearLayout.setOnClickListener(this);
 
         }
-    }
 
-//
-//    @Override
-//    public int getCount() {
-//        return countryList.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int position) {
-//        return null;
-//    }
-//
-//    @Override
-//    public long getItemId(int position) {
-//        return 0;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup parent) {
-//        View view = inflater.inflate(R.layout.listview_item, null);
-//        TextView textView = (TextView) view.findViewById(R.id.textView);
-//        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-//        textView.setText(countryList.get(position).name);
-//        imageView.setImageResource(countryList.get(position).flagId);
-//        return view;
-//    }
+        @Override
+        public void onClick(View v) {
+            if(listener != null){
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(position);
+                }
+            }
+        }
+    }
 }
