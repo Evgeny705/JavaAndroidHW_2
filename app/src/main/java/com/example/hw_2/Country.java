@@ -8,12 +8,20 @@ public class Country implements Serializable {
 
     String name;
     int flagId;
+    String flagURL;
     String capital;
     int area;
 
     public Country(String name, int flagId) {
         this.name = name;
         this.flagId = flagId;
+    }
+
+    public Country(String name, String flagURL, String capital, int area) {
+        this.name = name;
+        this.flagURL = flagURL;
+        this.capital = capital;
+        this.area = area;
     }
 
     public Country(String name, int flagId, String capital, int area) {
@@ -37,6 +45,14 @@ public class Country implements Serializable {
 
     public void setFlagId(int flagId) {
         this.flagId = flagId;
+    }
+
+    public String getFlagURL() {
+        return flagURL;
+    }
+
+    public void setFlagURL(String flagURL) {
+        this.flagURL = flagURL;
     }
 
     public String getCapital() { return capital; }

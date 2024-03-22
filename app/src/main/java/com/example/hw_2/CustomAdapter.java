@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
@@ -23,7 +25,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     LayoutInflater inflater;
 
     public CustomAdapter(Context applicationContext, OnItemClickListener listener, List<Country> countryList) {
-        this.context = context;
+        this.context = applicationContext;
         this.listener = listener;
         this.countryList = countryList;
         inflater = (LayoutInflater.from(applicationContext));
@@ -42,7 +44,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         Country country = countryList.get(position);
 
-        holder.imageView.setImageResource(country.getFlagId());
+        Glide.with(this.context).load(country.getFlagURL()).into(holder.imageView);
+        //holder.imageView.setImageResource(country.getFlagId());
         holder.textView.setText(country.getName());
 
     }

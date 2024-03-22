@@ -41,33 +41,15 @@ public class CountriesFragment extends Fragment implements OnItemClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        viewModel = new ViewModelProvider(this).get(CountriesViewModel.class);
-
         View view = inflater.inflate(R.layout.fragment_countries, container, false);
+
+        viewModel = new ViewModelProvider(this).get(CountriesViewModel.class);
 
         RecyclerView listOfCountries = (RecyclerView) view.findViewById(R.id.listView);
 
-        CustomAdapter customAdapter = new CustomAdapter(getActivity(), this::onItemClick, viewModel.getCountryList().getValue());
+        CustomAdapter customAdapter = new CustomAdapter(getContext(), this::onItemClick, viewModel.getCountryList().getValue());
 
         listOfCountries.setAdapter(customAdapter);
-
-//        listOfCountries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Country selectedCountry = viewModel.getCountryList().getValue().get(position);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("selectedCountry", selectedCountry);
-//                DetailsFragment detailsFragment = new DetailsFragment();
-//                detailsFragment.setArguments(bundle);
-//                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-//                transaction.replace(R.id.fragment_container, detailsFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-////                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-////                intent.putExtra("selectedCountry", selectedCountry);
-////                startActivity(intent);
-//            }
-//        });
 
         return view;
     }
