@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class DetailsFragment extends Fragment {
 
     public DetailsFragment() {
@@ -41,7 +43,7 @@ public class DetailsFragment extends Fragment {
 
         if (bundle != null) {
             ImageView imageFlag = view.findViewById(R.id.imageFlag);
-            imageFlag.setImageResource(viewModel.selectedCountry.getValue().flagId);
+            Glide.with(this).load(viewModel.selectedCountry.getValue().getFlagURL()).into(imageFlag);
 
             TextView textViewName = view.findViewById(R.id.textViewName);
             textViewName.setText(viewModel.selectedCountry.getValue().name);
