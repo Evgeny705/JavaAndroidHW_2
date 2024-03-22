@@ -1,11 +1,19 @@
 package com.example.hw_2;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
+@Entity
 public class Country implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NonNull
+    @PrimaryKey
+    String id;
     String name;
     int flagId;
     String flagURL;
