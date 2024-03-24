@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class DetailsActivity extends AppCompatActivity {
 
     @Override
@@ -21,7 +23,7 @@ public class DetailsActivity extends AppCompatActivity {
         Country selectedCountry = (Country) intent.getSerializableExtra("selectedCountry");
 
         ImageView imageFlag = findViewById(R.id.imageFlag);
-        imageFlag.setImageResource(selectedCountry.flagId);
+        Glide.with(this).load(selectedCountry.getFlagURL()).into(imageFlag);
 
         TextView textViewName = findViewById(R.id.textViewName);
         textViewName.setText(selectedCountry.name);

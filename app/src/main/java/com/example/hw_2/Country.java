@@ -15,29 +15,20 @@ public class Country implements Serializable {
     @PrimaryKey
     String id;
     String name;
-    int flagId;
     String flagURL;
     String capital;
     int area;
 
-    public Country(String name, int flagId) {
-        this.name = name;
-        this.flagId = flagId;
-    }
-
-    public Country(String name, String flagURL, String capital, int area) {
+    public Country(String id, String name, String flagURL, String capital, int area) {
+        this.id = id;
         this.name = name;
         this.flagURL = flagURL;
         this.capital = capital;
         this.area = area;
     }
 
-    public Country(String name, int flagId, String capital, int area) {
-        this.name = name;
-        this.flagId = flagId;
-        this.capital = capital;
-        this.area = area;
-    }
+    @NonNull
+    public String getId() { return id; }
 
     public String getName() {
         return name;
@@ -45,14 +36,6 @@ public class Country implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getFlagId() {
-        return flagId;
-    }
-
-    public void setFlagId(int flagId) {
-        this.flagId = flagId;
     }
 
     public String getFlagURL() {

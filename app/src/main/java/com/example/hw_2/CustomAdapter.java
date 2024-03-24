@@ -45,7 +45,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         Country country = countryList.get(position);
 
         Glide.with(this.context).load(country.getFlagURL()).into(holder.imageView);
-        //holder.imageView.setImageResource(country.getFlagId());
         holder.textView.setText(country.getName());
 
     }
